@@ -1,0 +1,105 @@
+El nombre del hostname sera ("nombre del usuario" + "42")
+
+
+
+
+Lo primero que mostramos son las particiones.
+Con el comando $lsblk
+
+Diferencias entre aptitude y apt:
+Apt es una herramienta de instalación de paquetes y aptitude es la alternativa de apt con interfaz grafica 
+
+
+SSH:
+Ssh es una herramienta que nos permite conectarnos remotamente desde una terminal ajena a la nuestra.
+El comando que utilizaremos para unirnos será:
+$ssh <user>@<serverIP> -p 4242
+(Hay que comprobar que no se pueda acceder como root desde ssh y que niegue la conexión con contraseñas erróneas y usuarios inválidos)
+
+Para salir simplemente escribimos 
+$exit
+
+
+UFW
+Comprobamos que este iniciado con el siguiente comando
+$sudo ufw status
+Deberiamos tener el puerto 4242 abierto
+$sudo ufw status verbose 		#Para ver mas detalladamente los valores de ufo
+$sudo ufw status numbered 		#Para ver las reglas de los puertos
+$sudo ufw delete <numero_de_regla>	#Para eliminar el puerto por regla
+
+
+Politica de Contraseñas
+Mostramos que hemos modificado la política de contraseñas
+$sudo nano /etc/login.defs. #Para acceder al documento que posee los datos necesarios
+	- Buscamos los 30 dias máximos 
+	- Buscamos los 2 dias mínimos
+	- Buscamos los 7 días de aviso
+
+Despues decimos que instalamos una herramienta para la implementar la política de contraseñas fuertes
+$sudo nano /etc/pam.d/common-password
+Y buscamos la linea y explicamos que hace cada cosa en ella.
+password requisite pam_pwqiality.so retry=3 minlen=10 ucredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root
+
+SUDO
+$sudo visudo #Para mostrar el archivo que usamos para darle los datos a sudo como 
+	-Defaults        passwd_tries=3					#Numero de intentos
+	-Defaults        badpass_message="<custom-error-message>".	#Mensaje customizable
+	-Defaults        logfile="/var/log/sudo/sudo.logs"		#Donde guardaremos los logs
+	-Defaults        log_input,log_output 				#Donde queremos archivar lo que hagamos con sudo
+	-Defaults        iolog_dir="/var/log/sudo" 			#Donde se alojan los resultados
+	-Defaults        requiretty 					#Solo se puede acceder con sudo desde la terminal
+	-Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+
+Usamos el comando $sudo nano /var/log/sudo/sudo.logs para ver los logs cuando se ejecuta sudo .
+
+USUARIO
+Creamos un usuario $sudo adduser <username>
+Le añadimos a los grupos user42 y sudo con el comando $ sudo gpasswd -a <username> <groupname>
+Comprobamos que los grupos están asociados $groups <user name>
+
+
+
+HOSTNAME
+$ hostnamectl 					#Visualiza el hostname actual
+$ hostnamectl set-hostname <new_hostname>	#Establecemos el nuevo nombre
+$ sudo nano /etc/hosts	
+
+
+
+CRON
+Configuramos el crontab del root $sudo crontab -u root -e
+Y añadimos la linea para ejecutar el script en la dirección especificada $*/10 * * * * sh /path/to/script 
+
+El comando sudo crontab -l muestra como configurar el cron
+
+Para acceder al script del Crontab que usamos
+$sudo nano /bin/monitoring.sh
+
+
+
+BONUS
+
+Necesitamos comprobar que todos los servicios (Lighttpd , MariaDB) están activos para poder iniciar el servidor web
+$systemctl status lighttpd 	#Comprueba el estado del servidor
+$systemctl status mariadb-server / $systemctl status mysql	
+
+
+Explicamos que necesitamos Lighttpd para montar el servidor mientras que utilizamos la MariaDB para montar la base de datos y del PHP los modos que le instalamos para poder correrlo en la web
+El WordPress le linkeamos la configuration con MariaDB para poder conectarse
+sudo nano /var/www/html/wp-config.php
+
+Para recargar la pagina web en caso de recuperar algo ejecutamos $sudo service lighttpd force-reload
+
+
+
+
+
+
+
+
+
+
+
+
+
