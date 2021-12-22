@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 19:36:19 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/11/12 21:12:28 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:56:33 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_lstclear(t_list **lst)
 {
 	t_list	*aux;
 	t_list	*aux2;
@@ -20,7 +20,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 	while (aux != 0)
 	{
 		aux2 = aux->next;
-		del(aux->content);
+		aux->content = 0;
 		free(aux);
 		aux = aux2;
 	}

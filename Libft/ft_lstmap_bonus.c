@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 21:48:02 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/11/16 13:06:06 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2021/12/21 11:13:00 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static	void	ft_free_all(t_list *start);
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, t_list *lst_start, int(*f)(t_list*, int))
 {
 	t_list	*aux;
 	t_list	*start;
 
 	if (lst == NULL)
 		return (0);
-	aux = ft_lstnew(f(lst->content));
+	aux = ft_lstnew(f(lst_start, lst->content));
 	if (aux == NULL)
 		return (0);
 	start = aux;
@@ -30,12 +30,13 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		lst = lst->next;
 		if (lst != NULL)
 		{
-			aux->next = ft_lstnew(f(lst->content));
+			aux->next = ft_lstnew(f(lst_start, lst->content));
+			aux->next->prev = aux;
 			aux = aux->next;
 		}
 		if (aux == NULL)
 		{
-			ft_lstclear(&start, del);
+			ft_lstclear(&start);
 			ft_free_all(start);
 			return (0);
 		}

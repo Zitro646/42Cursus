@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_count_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/09 12:14:08 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/12/09 12:14:11 by mortiz-d         ###   ########.fr       */
+/*   Created: 2021/12/17 09:11:14 by mortiz-d          #+#    #+#             */
+/*   Updated: 2021/12/20 13:50:53 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	*ft_memset(void *str, int c, size_t size)
+int	ft_count_list(int *list)
 {
-	char			*aux1;
-	unsigned long	aux2;
+	int	i;
 
-	aux1 = str;
-	aux2 = 0;
-	while ((aux2 < size))
+	i = 0;
+	if (list != 0)
 	{
-		*aux1 = (unsigned char)c;
-		aux2++;
-		aux1++;
+		while (list[i] != '\0')
+			i++;
 	}
-	return (str);
+	return (i);
 }

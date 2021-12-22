@@ -6,7 +6,7 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:36:20 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/12/22 10:53:01 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2021/12/22 13:59:44 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	main(int argc, char **argv)
 		ft_arrange_less_than_5(list_a, list_b);
 	else if ((argc - 1) <= 100)
 		ft_arrange_less_than_100(list_a, list_b);
+	else
+		ft_arrange_more_than_100(list_a, list_b);	
 
 	//printf("Hay %i posiciones de diferencia entre 2 y 1 mirando hacia abajo\n", ft_lst_search_nbr(*list_b, 98, 2));
 	//printf("Hay %i posiciones de diferencia entre 2 y 1 mirando hacia arriba\n", ft_lst_search_nbr(*list_b, 1, 4));

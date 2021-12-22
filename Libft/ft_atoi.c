@@ -6,7 +6,7 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:49:01 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/11/16 15:51:24 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2021/12/09 15:53:16 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ int	ft_atoi(const char *str)
 	while (*str >= '0' && *str <= '9')
 	{
 		numero = (numero * 10) + (*str++ - '0');
-		if (numero > 2147483647 && resta == 0)
-			return (-1);
-		else if (numero > 2147483648 && resta > 0)
+		if ((numero > 2147483647 && resta == 0) || \
+		 (numero > 2147483648 && resta > 0))
 			return (0);
 	}
+	if (*str != '\0')
+		return (0);
 	if (resta > 0)
 		return ((int)numero * -1);
 	return ((int)numero);
