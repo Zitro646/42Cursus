@@ -26,10 +26,9 @@ AR = ar rcs
 all:${NAME}
 
 ${NAME}: ${OBJS}
-	$(BLUE) Ensambling TOOLS Library $(RESET)
 	cp ../operations/operations.a $(NAME)	
 	${AR} ${NAME} ${OBJS}
-	$(BLUE) OPERATIONS TOOLS Ensambled $(RESET)
+	$(BLUE) TOOLS Library Ensambled $(RESET)
 	
 %.o:	%.c 
 	$(CYAN) Compiling TOOLS Object $< $(RESET)

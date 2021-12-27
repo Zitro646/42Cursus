@@ -25,10 +25,8 @@ AR = ar rcs
 all:${NAME}
 
 ${NAME}: ${OBJS}
-	$(BLUE) Ensambling OPERATIONS Library $(RESET)
 	cp ../libft/libft.a $(NAME)
 	${AR} ${NAME} ${OBJS}
-	
 	$(BLUE) OPERATIONS Library Ensambled $(RESET)
 	
 %.o:	%.c 

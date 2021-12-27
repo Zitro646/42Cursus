@@ -6,7 +6,7 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 17:36:20 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/12/27 11:38:39 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2021/12/27 12:29:00 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,3 @@ int	main(int argc, char **argv)
 		ft_arrange_more_than_5(list_a, list_b, 11);
 	return (1);
 }
-
-//Hol
