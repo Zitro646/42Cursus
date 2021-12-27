@@ -6,11 +6,11 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 15:00:42 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/12/16 14:25:11 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2021/12/27 09:51:38 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
+#include "libft.h"
 int	ft_lstisnbrmin(t_list *lst, int nbr)
 {
 	int	aux;

@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pb.c                                            :+:      :+:    :+:   */
+/*   ft_list_is_sorted.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/07 16:27:57 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/12/27 11:39:28 by mortiz-d         ###   ########.fr       */
+/*   Created: 2021/12/10 12:22:44 by mortiz-d          #+#    #+#             */
+/*   Updated: 2021/12/27 09:51:04 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "operations.h"
-void	ft_pb(t_list **list_a, t_list **list_b, int show)
+#include "libft.h"
+int	ft_list_is_sorted(t_list *list)
 {
 	t_list	*aux;
 
-	if (*list_b != 0)
+	aux = ft_lstlast(list);
+	while (list != aux)
 	{
-		aux = ft_lstnew((*list_a)->content);
-		ft_lstadd_front(&(*list_b), aux);
+		if (list->content > list->next->content)
+			return (0);
+		list = list->next;
 	}
-	else
-	{
-		aux = ft_lstnew((*list_a)->content);
-		*list_b = aux;
-	}
-	aux = (*list_a)->next;
-	ft_lstdelone(*list_a);
-	*list_a = aux;
-	if (list_a != 0)
-		(*list_a)->prev = 0;
-	if (show == 1)
-		printf("pb\n");
+	return (1);
 }

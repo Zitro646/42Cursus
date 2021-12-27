@@ -6,11 +6,11 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 16:14:48 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/12/22 09:48:31 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2021/12/27 10:41:41 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
+#include "libft.h"
 
 static int	ft_lst_search_down_aprox(t_list *list, int nbr);
 static int	ft_lst_search_down_exact(t_list *list, int nbr);
@@ -19,7 +19,6 @@ static int	ft_lst_search_up_exact(t_list *list, int nbr);
 
 int	ft_lst_search_nbr(t_list *list, int nbr, int mode)
 {
-	//printf("Error\n");
 	if (mode == 1)
 	{
 		return (ft_lst_search_down_aprox(list, nbr));

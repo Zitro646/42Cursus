@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_list_is_sorted.c                                :+:      :+:    :+:   */
+/*   ft_lstisnbrmax.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:22:44 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/12/15 08:22:14 by mortiz-d         ###   ########.fr       */
+/*   Created: 2021/12/17 14:47:01 by mortiz-d          #+#    #+#             */
+/*   Updated: 2021/12/27 10:42:35 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
-int	ft_list_is_sorted(t_list *list)
+#include "libft.h"
+int	ft_lstisnbrmax(t_list *lst, int nbr)
 {
-	t_list	*aux;
+	int	aux;
 
-	aux = ft_lstlast(list);
-	while (list != aux)
+	aux = nbr;
+	if (lst != 0)
 	{
-		if (list->content > list->next->content)
+		while (lst->next != 0)
+		{
+			if (lst->content > aux)
+				return (0);
+			lst = lst->next;
+		}
+		if (lst->content > aux)
 			return (0);
-		list = list->next;
+		return (1);
 	}
-	return (1);
+	return (0);
 }

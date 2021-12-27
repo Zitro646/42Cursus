@@ -6,10 +6,8 @@ CYAN = @echo "\033[0;36m"
 RESET = "\033[1;0m"
 
 # RESOURCES #
-SRCS = ft_starter_array.c ft_error_checker.c ft_look_arrays.c ft_list_is_sorted.c  \
-ft_lst_get_nbrpos.c ft_lstisnbrmin.c ft_lstisnbrmax.c ft_map_array.c ft_manage_chunks.c \
-ft_lst_top.c ft_lst_search_nbr.c \
-ft_arrange_less_than_3.c ft_arrange_less_than_5.c ft_arrange_less_than_100.c ft_arrange_more_than_100.c 
+SRCS = ft_starter_array.c ft_error_checker.c ft_look_arrays.c  \
+ft_map_array.c ft_arrange_less_than_3.c ft_arrange_less_than_5.c ft_arrange_more_than_5.c
 
 
 # FLAGS #
@@ -28,7 +26,8 @@ AR = ar rcs
 all:${NAME}
 
 ${NAME}: ${OBJS}
-	$(BLUE) Ensambling TOOLS Library $(RESET)	
+	$(BLUE) Ensambling TOOLS Library $(RESET)
+	cp ../operations/operations.a $(NAME)	
 	${AR} ${NAME} ${OBJS}
 	$(BLUE) OPERATIONS TOOLS Ensambled $(RESET)
 	

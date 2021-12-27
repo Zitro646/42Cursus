@@ -6,11 +6,11 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 14:31:18 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/12/20 14:24:37 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2021/12/27 10:41:33 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tools.h"
+#include "libft.h"
 int	ft_lst_get_nbrpos(t_list *lst, int nbr)
 {
 	int	cont;
@@ -20,7 +20,6 @@ int	ft_lst_get_nbrpos(t_list *lst, int nbr)
 	{
 		while (lst->next != 0)
 		{
-			//printf ("Numero visto : %i \n",lst->content);
 			if (cont == nbr)
 				return (lst->content);
 			lst = lst->next;

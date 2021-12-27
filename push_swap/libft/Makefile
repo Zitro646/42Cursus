@@ -13,8 +13,8 @@ ft_strlcpy.c ft_strlcat.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_subs
 ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_putchar_fd.c  \
 ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_striteri.c ft_count_list.c\
 ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c ft_lstlast_bonus.c \
-ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
-
+ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_lstiter_bonus.c \
+ft_list_is_sorted.c ft_lst_get_nbrpos.c ft_lstisnbrmin.c ft_lstisnbrmax.c ft_lst_search_nbr.c ft_lst_top.c ft_lstmap_bonus.c
 
 # FLAGS #
 OBJS = ${SRCS:.c=.o}
@@ -29,10 +29,9 @@ AR = ar rcs
 
 
 # Instructions #
-all:${NAME}
+all: ${NAME}
 
 ${NAME}: ${OBJS}
-	$(BLUE) Ensambling LIBFT Library $(RESET)	
 	${AR} ${NAME} ${OBJS}
 	$(BLUE) LIBFT Library Ensambled $(RESET)	
 	

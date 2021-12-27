@@ -6,7 +6,7 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:51:39 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/12/21 10:41:43 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2021/12/27 09:47:10 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,13 @@ void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstdelone(t_list *lst);
 void		ft_lstclear(t_list **lst);
 void		ft_lstiter(t_list *lst, void (*f)(int));
+int			ft_list_is_sorted(t_list *list);
+int			ft_lst_get_nbrpos(t_list *lst, int nbr);
+int			ft_lstisnbrmin(t_list *lst, int nbr);
+int			ft_lstisnbrmax(t_list *lst, int nbr);
+int			ft_lst_search_nbr(t_list *list, int nbr, int mode);
+int			ft_lst_search_down_dst(t_list *list, int nbr);
+t_list		*ft_lst_top(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, t_list *lst_start, int(*f)(t_list*, int));
 
 #endif

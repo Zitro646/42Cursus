@@ -6,7 +6,7 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 21:48:02 by mortiz-d          #+#    #+#             */
-/*   Updated: 2021/12/21 11:13:00 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2021/12/27 10:46:00 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_list	*ft_lstmap(t_list *lst, t_list *lst_start, int(*f)(t_list*, int))
 		}
 		if (aux == NULL)
 		{
-			ft_lstclear(&start);
 			ft_free_all(start);
 			return (0);
 		}

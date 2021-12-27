@@ -23,14 +23,16 @@ CFLAGS = -Wall -Werror -Wextra
 # -g3
 # -fsanitize=address
 # INSTRUCTIONS #
-all:${NAME}
+all: pre ${NAME}
 
-${NAME}: ${OBJS}
-	$(BLUE) Ensambling Libraries $(RESET)
+pre:
 	@make -sC $(LIB_PATH)
 	@make -sC $(OPT_PATH)
 	@make -sC $(TOOL_PATH)
-	$(CC) $(CFLAGS) $(SRCS) $(LIB_PATH)/libft.a $(OPT_PATH)/operations.a $(TOOL_PATH)/tools.a -o $(NAME)
+
+${NAME}: ${OBJS}
+	$(BLUE) Ensambling Libraries $(RESET)
+	$(CC) $(CFLAGS) $(SRCS) tools/tools.a -o $(NAME)
 %.o:	%.c 
 	$(CYAN) Compiling PUSH_SWAP Object $< $(RESET)
 	$(CC) $(CFLAGS) -c $<
@@ -46,7 +48,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re pre
 
 
 
