@@ -1,4 +1,4 @@
-*Para visualizar las particiones del sistema ejecutamos el comando:
+sys*Para visualizar las particiones del sistema ejecutamos el comando:
 $lsblk
 *La diferencia entre aptitude y apt 
 Apt(Advanced Package Tool) es una herramienta que utilizamos para descargar programas pero aptitude en este sentido tiene una mayor cantidad de herramientas para optimizar/realizar las operaciones.
@@ -39,6 +39,7 @@ $sudo nano /etc/ssh/sshd_config #Para configurar el puerto 4242 y que no se pued
 $systemctl status ssh 		#Comprueba el estado del servicio
 
 Nos conectamos desde una terminal nueva con el comando.
+$hostname -I
 $ssh user@serverIP -p 4242 #Para conectarse desde una terminal ajena
 Introducimos la contraseña y estaremos dentro.
 
@@ -57,6 +58,7 @@ $sudo ufw status verbose
 *HOSTNAME
 _____________________________________________________________
 
+$uname -vm #informmacion del sistema
 $ hostnamectl 					#Visualiza el hostname actual
 $ hostnamectl set-hostname <new_hostname>	#Establecemos el nuevo nombre
 $ sudo nano /etc/hosts				#Cambiamos el hostname aqui tambien
@@ -72,7 +74,7 @@ Instalamos un paquete para mejorar el control de contraseñas con el comando :
 $sudo apt-get install libpam-pwquality
 $sudo nano /etc/pam.d/common-password
 Y añadimos al final de la linea :
-password requisite pam_pwqiality.so retry=3 minlen=10 ucredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root
+password requisite pam_pwquality.so retry=3  minlen=10 ucredit=-1 dcredit=-1 maxrepeat=3 reject_username enforce_for_root difok=7 
 
 *USUARIOS
 ______________________________________________________________
@@ -80,6 +82,8 @@ ______________________________________________________________
 $cat /etc/passwd 			#Para ver todos los usuarios en el ordenador(manera bruta)
 $getent passwd | cut -d ":" -f 1 	#Para ver todos los usuarios en el ordenador más simplemente
 $getent passwd <user_name>		#Para comprobar si el usuario introducido existe
+$useradd <username>
+$passwd <username>
 Userdel <user name> -r 			#Para borrar el usuario
 
 
@@ -104,6 +108,7 @@ $sudo visudo
 $sudo crontab -u root -e
 
 Y añadimos la linea para ejecutar el script en la dirección especificada
+@reboot/10 /path/to/script
 */10 * * * * sh /path/to/script 
 
 El comando sudo crontab -l muestra como configurar el cron
