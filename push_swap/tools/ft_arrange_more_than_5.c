@@ -35,7 +35,7 @@ t_list	**ft_arrange_more_than_5(t_list **list_a, t_list **list_b, int div)
 
 static void	move_numbers_listB(t_list **list_a, t_list **list_b, int num)
 {	
-	while (ft_lstisnbrmin(*list_a, num) != 1)
+	while (ft_lstisnbrmin(*list_a, num) != 1 && ft_lstsize(*list_a) > 1)
 	{
 		if ((*list_a)->content < num)
 			ft_pb(list_a, list_b, 1);

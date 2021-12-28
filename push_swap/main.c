@@ -24,13 +24,15 @@ int	main(int argc, char **argv)
 	{
 		ft_lstclear(list_a);
 		ft_lstclear(list_b);
-		printf("Error");
+		printf("Error\n");
 		return (0);
 	}
 	if ((argc - 1) <= 3)
 		ft_arrange_less_than_3(list_a);
 	else if ((argc - 1) <= 5)
 		ft_arrange_less_than_5(list_a, list_b);
+	else if ((argc - 1) <= 19)
+		ft_arrange_more_than_5(list_a, list_b, 2);
 	else if ((argc - 1) <= 100)
 		ft_arrange_more_than_5(list_a, list_b, 4);
 	else

@@ -20,7 +20,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (s == NULL)
 		return (0);
-	if (len <= 0 || start < 0 || (int)start >= (ft_strlen((char *)s) + 1))
+	if (len <= 0 || (int)start >= (ft_strlen((char *)s) + 1))
 	{
 		aux1 = (char *)ft_calloc(sizeof(char), 1);
 		if (aux1 == NULL)

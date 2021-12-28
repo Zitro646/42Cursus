@@ -18,7 +18,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	unsigned int	modsize;
 
 	cont = 0;
-	while (dst[cont] != '\0' & cont <= dstsize)
+	while (dst[cont] != '\0' && cont <= dstsize)
 		cont++;
 	modsize = dstsize - cont;
 	if (cont < dstsize)

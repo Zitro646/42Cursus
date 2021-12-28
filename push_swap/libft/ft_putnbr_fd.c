@@ -18,7 +18,7 @@ void	ft_putnbr_fd(int nb, int fd)
 {
 	if (nb <= 2147483647 && nb >= 0)
 		alznum(nb, fd);
-	else if (nb < 0 && nb >= -2147483648)
+	else if (nb < 0 && nb > -2147483647)
 	{
 		if (nb == -2147483648)
 		{

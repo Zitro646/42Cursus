@@ -20,9 +20,7 @@ static char	**make_array(char **array, char const *s, char c);
 char	**ft_split(char const *s, char c)
 {
 	char	**aux1;
-	int		cont;
-
-	cont = 0;
+	
 	if (s == NULL)
 		return (0);
 	aux1 = ft_calloc(sizeof(char *), partscount(s, c) + 1);

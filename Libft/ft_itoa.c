@@ -18,10 +18,8 @@ static char	*convertir_string(int n, int tam, char *array);
 char	*ft_itoa(int n)
 {
 	int		tam;
-	int		cont;
 	char	*str;
 
-	cont = 0;
 	tam = calcular_tamano(n);
 	str = ft_calloc(sizeof(char), tam + 1);
 	if (str == 0)
