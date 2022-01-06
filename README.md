@@ -1,5 +1,6 @@
+# Curso 42
+Un repositorio con los proyectos que he echo en 42 Madrid.
 <div class="header"  >
-    <img src="https://badge42.herokuapp.com/api/stats/mortiz-d?privacyEmail=true"/>
     <img src="https://1337-readme.vercel.app/api/profile?cursus=42cursus&dark=true&email=hide&login=mortiz-d"/>    
 </div class="header">
 
