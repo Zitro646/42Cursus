@@ -5,47 +5,85 @@ PURPLE = @echo "\033[0;35m"
 CYAN = @echo "\033[0;36m"
 RESET = "\033[1;0m"
 
-# PATHS #
-MLB_PATH = minilibx_opengl
-GNL_PATH = get_next_line
-LIB_PATH = Libft
-MAP_PATH = map
-GAM_PATH = game
-
-# FLAGS #
-SRCS = main.c
-
-OBJS = ${SRCS:.c=.o}
-
-NAME = a.out
-
+# VARIABLES #
+NAME = game
+LIBFT_NAME = libft.a
 CC = gcc
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
+CFLAGS += -I ./$(INC_PATH) -I ./$(LIBFT_PATH)
+MINILIBX = -lmlx -framework OpenGL -framework AppKit
 
-CFLAGS = -Wall -Werror -Wextra #-g3 -fsanitize=address
-# INSTRUCTIONS #
-all: pre ${NAME}
+# PATHs #
+LIBFT_PATH  = srcs/libft
+MAP_PATH  = srcs/map
+GAME_PATH  = srcs/game
+INC_PATH    = includes
+SRC_PATH    = srcs
+OBJ_PATH    = objects
 
-pre:
-	@make -sC $(LIB_PATH)
-	@make -sC $(MAP_PATH)
-	@make -sC $(GAM_PATH)
+# SOURCES #
+SRC =   main.c
 
-${NAME}: ${OBJS}
-	$(BLUE) Ensambling Libraries $(RESET)
-	$(CC) $(CFLAGS) $(SRCS) $(GAM_PATH)/$(GAM_PATH).a -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-%.o:	%.c 
-	$(CYAN) Compiling SoLong Object $< $(RESET)
-	$(CC) $(CFLAGS) -c $<
+SRC_GAME = game_mechanics.c image_control.c start_game.c
+
+SRC_MAP = mapreader.c mapcheck.c get_file_height.c
+
+
+
+# RULES #
+all: $(NAME)
+
+OBJ_NAME = $(SRC:%.c=%.o)
+OBJ_GAMES = $(SRC_GAME:%.c=%.o)
+OBJ_MAPS = $(SRC_MAP:%.c=%.o)
+
+SRCS = $(addprefix $(SRC_PATH)/, $(SRC))
+SRCS_GAMES = $(addprefix $(GAME_PATH)/, $(SRC))
+SRCS_MAP = $(addprefix $(MAP_PATH)/, $(SRC))
+
+OBJS =  $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
+OBJS_GAMES =  $(addprefix $(OBJ_PATH)/, $(OBJ_GAMES))
+OBJS_MAPS =  $(addprefix $(OBJ_PATH)/, $(OBJ_MAPS))
+
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH) 2> /dev/null
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_PATH)/%.o: $(GAME_PATH)/%.c | $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_PATH)/%.o: $(MAP_PATH)/%.c | $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@
+            
+$(NAME): $(OBJS) $(OBJS_MAPS) $(OBJS_GAMES) | $(LIBFT_NAME)
+	$(CC) $(CFLAGS) $(OBJS_MAPS) $(OBJS_GAMES) $(OBJS) $(MINILIBX) -o $(NAME) $(addprefix $(LIBFT_PATH)/, $(LIBFT_NAME))
+
+$(LIBFT_NAME):
+	$(MAKE) -sC $(LIBFT_PATH)
+
+##RULES
+$(MAKE): make
+
+norminette:
+	norminette $(SRCS)
+	norminette $(LIBFT_PATH)
+	norminette $(MAP_PATH)
+	norminette $(GAME_PATH)
 
 clean:
-	$(PURPLE) Cleaning ALL Objects $(RESET)
-	@make fclean -sC $(MAP_PATH)
-	@make fclean -sC $(LIB_PATH)
-	@make fclean -sC $(GAM_PATH)
-	@rm -rf ${OBJS}
+	$(PURPLE) CLEANING OBJECTS $(RESET)
+	rm -rf $(OBJS)
+	rm -rf $(OBJS_GAMES)
+	rm -rf $(OBJS_MAPS)
+	
 fclean: clean
-	@rm -rf ${NAME}
+	$(PURPLE) CLEANING DIRECTORY AND EXEC $(RESET)
+	rm -rf $(NAME)
+	rm -rf $(OBJ_PATH)
+	make fclean -sC $(LIBFT_PATH)
 
 re: fclean all
 
-.PHONY: all clean fclean re pre
+PHONY.: all clean fclean re norminette

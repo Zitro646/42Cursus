@@ -5,53 +5,85 @@ PURPLE = @echo "\033[0;35m"
 CYAN = @echo "\033[0;36m"
 RESET = "\033[1;0m"
 
-# PATHS #
-LIB_PATH = libft
-OPT_PATH = operations
-TOOL_PATH = tools
-
-# FLAGS #
-SRCS = main.c
-
-OBJS = ${SRCS:.c=.o}
-
+# VARIABLES #
 NAME = push_swap
-
+LIBFT_NAME = libft.a
 CC = gcc
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
+CFLAGS += -I ./$(INC_PATH) -I ./$(LIBFT_PATH)
 
-CFLAGS = -Wall -Werror -Wextra 
-# -g3
-# -fsanitize=address
-# INSTRUCTIONS #
-all: pre ${NAME}
+# PATHs #
+LIBFT_PATH  = srcs/libft
+TOOL_PATH  = srcs/tools
+OPERATION_PATH  = srcs/operations
+INC_PATH    = includes
+SRC_PATH    = srcs
+OBJ_PATH    = objects
 
-pre:
-	@make -sC $(LIB_PATH)
-	@make -sC $(OPT_PATH)
-	@make -sC $(TOOL_PATH)
 
-${NAME}: ${OBJS}
-	$(BLUE) Ensambling Libraries $(RESET)
-	$(CC) $(CFLAGS) $(SRCS) tools/tools.a -o $(NAME)
-%.o:	%.c 
-	$(CYAN) Compiling PUSH_SWAP Object $< $(RESET)
-	$(CC) $(CFLAGS) -c $<
+
+# SOURCES #
+SRC =   main.c
+
+SRC_TOOL = ft_starter_array.c ft_error_checker.c ft_look_arrays.c  \
+ft_map_array.c ft_arrange_less_than_3.c ft_arrange_less_than_5.c ft_arrange_more_than_5.c
+
+SRC_OPERATIONS = ft_sa.c ft_sb.c ft_ss.c ft_pa.c ft_pb.c  ft_ra.c ft_rb.c ft_rr.c ft_rra.c ft_rrb.c ft_rrr.c
+
+# RULES #
+all: $(NAME)
+
+OBJ_NAME = $(SRC:%.c=%.o)
+OBJ_TOOLS = $(SRC_TOOL:%.c=%.o)
+OBJ_OPERATION = $(SRC_OPERATIONS:%.c=%.o)
+
+SRCS = $(addprefix $(SRC_PATH)/, $(SRC))
+SRCS_OPERATIONS = $(addprefix $(OPERATION_PATH)/, $(SRC))
+SRCS_TOOL = $(addprefix $(TOOL_PATH)/, $(SRC))
+
+OBJS =  $(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
+OBJS_TOOLS =  $(addprefix $(OBJ_PATH)/, $(OBJ_TOOLS))
+OBJS_OPERATION =  $(addprefix $(OBJ_PATH)/, $(OBJ_OPERATION))
+
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH) 2> /dev/null
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_PATH)/%.o: $(OPERATION_PATH)/%.c | $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_PATH)/%.o: $(TOOL_PATH)/%.c | $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@
+            
+$(NAME): $(OBJS) $(OBJS_OPERATION) $(OBJS_TOOLS) | $(LIBFT_NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(OBJS_OPERATION) $(OBJS_TOOLS) -o $(NAME) $(addprefix $(LIBFT_PATH)/, $(LIBFT_NAME))
+
+$(LIBFT_NAME):
+	$(MAKE) -sC $(LIBFT_PATH)
+
+##RULES
+$(MAKE): make
+
+norminette:
+	norminette $(SRCS)
+	norminette $(LIBFT_PATH)
+	norminette $(TOOL_PATH)
+	norminette $(OPERATION_PATH)
 
 clean:
-	$(PURPLE) Cleaning ALL Objects $(RESET)
-	@make fclean -sC $(LIB_PATH)
-	@make fclean -sC $(OPT_PATH)
-	@make fclean -sC $(TOOL_PATH)
-	@rm -rf ${OBJS}
+	$(PURPLE) CLEANING OBJECTS $(RESET)
+	rm -rf $(OBJS)
+	rm -rf $(OBJS_TOOLS)
+	rm -rf $(OBJS_OPERATION)
+	
 fclean: clean
-	@rm -rf ${NAME}
+	$(PURPLE) CLEANING DIRECTORY AND EXEC $(RESET)
+	rm -rf $(NAME)
+	rm -rf $(OBJ_PATH)
+	make fclean -sC $(LIBFT_PATH)
 
 re: fclean all
 
-.PHONY: all clean fclean re pre
-
-
-
-
-
-
+PHONY.: all clean fclean re norminette
