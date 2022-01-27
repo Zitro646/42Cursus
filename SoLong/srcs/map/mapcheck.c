@@ -6,7 +6,7 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 13:24:16 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/21 15:02:21 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2022/01/25 14:33:41 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,42 +40,81 @@ int	check_file_borders(char **map_background, int count, int i)
 	return (1);
 }
 
-int	check_object_numbers(t_list *list, t_list *player)
+int	check_object_numbers(char **show_map, int exit, int coin, int player)
 {
-	int		exit_count;
-	int		coin_count;
-	int		player_count;
+	int		x;
+	int		y;
 
-	exit_count = 0;
-	coin_count = 0;
-	player_count = 0;
-	while (list != 0)
+	y = 0;
+	while (show_map[y] != 0)
 	{
-		if (list->type == 'C')
-			coin_count++;
-		if (list->type == 'E')
-			exit_count++;
-		list = list->next;
+		x = 0;
+		while (show_map[y][x] != 0)
+		{
+			if (show_map[y][x] == 'C')
+				coin++;
+			if (show_map[y][x] == 'E')
+				exit++;
+			if (show_map[y][x] == 'P')
+				player++;
+			x++;
+		}
+		y++;
 	}
-	if (player != 0)
-		player_count = 1;
-	if (coin_count < 1 || exit_count < 1 || player_count < 1)
+	if (coin < 1 || exit < 1 || player != 1)
 		return (-1);
 	return (1);
+}
+
+int	check_strange_map(char **showmap)
+{	
+	int		strange;
+	int		i;
+	int		j;
+
+	i = 0;
+	strange = 0;
+	while (showmap[i] != '\0')
+	{
+		j = 0;
+		while (showmap[i][j] != '\0')
+		{
+			if (showmap[i][j] != '0' && showmap[i][j] != '1' \
+				&& showmap[i][j] != 'P' && showmap[i][j] != 'C' \
+				&& showmap[i][j] != 'E' && showmap[i][j] != 'X')
+				strange++;
+			j++;
+		}
+		i++;
+	}
+	return (strange);
 }
 
 int	mapcheck(t_data_map *map)
 {
 	int	check_border;
 	int	check_objects;
+	int	check_map;
 
 	if (map == NULL)
+	{
+		printf ("Error - Bad map.\n");
 		return (-1);
-	check_border = check_file_borders((map)->background_map, 0, 0);
-	check_objects = 1;
-	check_objects = check_object_numbers(*(map)->list, *(map)->player);
-	if (check_border == 1 && check_objects == 1)
-		return (1);
-	else
-		return (-1);
+	}
+	check_border = check_file_borders((map)->showmap, 0, 0);
+	check_objects = check_object_numbers(map->showmap, 0, 0, 0);
+	check_map = check_strange_map((map)->showmap);
+	if (check_border != 1 || check_objects != 1 || check_map != 0)
+	{
+		printf("Error");
+		if (check_border != 1)
+			printf(" - Bad Border");
+		if (check_objects != 1)
+			printf(" - Incorrect object number");
+		if (check_map != 0)
+			printf(" - Strange declaration on map");
+		printf(".\n");
+		return (-2);
+	}
+	return (1);
 }

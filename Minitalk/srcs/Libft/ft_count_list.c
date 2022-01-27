@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_count_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 19:47:47 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/25 14:43:38 by mortiz-d         ###   ########.fr       */
+/*   Created: 2021/12/17 09:11:14 by mortiz-d          #+#    #+#             */
+/*   Updated: 2022/01/17 13:41:28 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(char type, int x, int y)
+int	ft_count_list(int *list)
 {
-	t_list	*lista;
+	int	i;
 
-	lista = malloc(sizeof(t_list));
-	if (lista == 0)
-		return (0);
-	lista->type = type;
-	lista->go_to_x = x;
-	lista->go_to_y = y;
-	lista->x_axis = x;
-	lista->y_axis = y;
-	lista->next = 0;
-	lista->prev = 0;
-	return (lista);
+	i = 0;
+	if (list != 0)
+	{
+		while (list[i] != '\0')
+			i++;
+	}
+	return (i);
 }

@@ -5,51 +5,69 @@ PURPLE = @echo "\033[0;35m"
 CYAN = @echo "\033[0;36m"
 RESET = "\033[1;0m"
 
-# RESOURCES #
-SRCS = client.c server.c encryption.c
-
-# PATHS #
-LIB_PATH = Libft
-
-# FLAGS #
-OBJS = ${SRCS:.c=.o}
-
-NAME_SERVER = server
-NAME_CLIENT = client
-
+# VARIABLES #
+NAME = Minitalk
+SVR_NAME	= server
+CLNT_NAME	= client
+LIBFT_NAME = libft.a
+PRINTF_NAME = printf.a
 CC = gcc
+CFLAGS = -Wall -Werror -Wextra #-g3
+CFLAGS += -I ./$(INC_PATH) -I ./$(LIBFT_PATH)
 
-CFLAGS = -Wall -Werror -Wextra #-fsanitize=address -g3
+# PATHs #
+LIBFT_PATH  = srcs/libft
+PRINTF_PATH  = srcs/printf
+INC_PATH    = includes
+SRC_PATH    = srcs
+OBJ_PATH    = objects
 
-AR = ar rcs
 
+# SOURCES #
+SRC =   client.c\
+        server.c
 
-# Instructions #
-all: pre ${NAME}
-	
-pre:
-	@make -sC $(LIB_PATH)
+# RULES #
+all: $(NAME)
 
-client:${NAME}
-	$(CC) $(CFLAGS) client.c encryption.c ./Libft/libft.a minitalk.h -o $(NAME_CLIENT)
+OBJS_NAME = $(SRC:%.c=%.o)
 
-server:${NAME}
-	$(CC) $(CFLAGS) server.c decryption.c ./Libft/libft.a minitalk.h -o $(NAME_SERVER)
+SRCS = $(addprefix $(SRC_PATH)/, $(SRC))
 
-${NAME}: ${OBJS}	
+OBJS =  $(addprefix $(OBJ_PATH)/, $(OBJS_NAME))
 
-%.o:	%.c 
-	$(CYAN) Compiling LIBFT Object $< $(RESET)
-	$(CC) $(CFLAGS) -c $<
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH) 2> /dev/null
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c | $(OBJ_PATH)
+	$(CC) $(CFLAGS) -c $< -o $@
+            
+$(NAME): $(OBJS) | $(LIBFT_NAME)
+	$(CC) $(CFLAGS) $(SRC_PATH)/server.c -o $(SVR_NAME) $(addprefix $(LIBFT_PATH)/, $(LIBFT_NAME)) $(addprefix $(PRINTF_PATH)/, $(PRINTF_NAME))
+	$(CC) $(CFLAGS) $(SRC_PATH)/client.c -o $(CLNT_NAME) $(addprefix $(LIBFT_PATH)/, $(LIBFT_NAME)) $(addprefix $(PRINTF_PATH)/, $(PRINTF_NAME))
+
+$(LIBFT_NAME):
+	$(MAKE) -sC $(LIBFT_PATH)
+	$(MAKE) -sC $(PRINTF_PATH)
+
+##RULES
+$(MAKE): make
+
+norminette:
+	norminette $(SRCS)
+	norminette $(LIBFT_PATH)
+	norminette $(PRINTF_PATH)
 
 clean:
-	$(PURPLE) Cleaning LIBFT Objects $(RESET)
-	@make fclean -sC $(LIB_PATH)
-	@rm -rf ${OBJS}
-
+	rm -rf $(OBJS)
+	
 fclean: clean
-	rm -rf ${NAME}
+	rm -rf $(SVR_NAME)
+	rm -rf $(CLNT_NAME)
+	rm -rf $(OBJ_PATH)
+	make fclean -sC $(LIBFT_PATH)
+	make fclean -sC $(PRINTF_PATH)
 
 re: fclean all
 
-.PHONY: all clean fclean re client server
+PHONY.: all clean fclean re norminette

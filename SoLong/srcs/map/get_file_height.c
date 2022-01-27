@@ -6,7 +6,7 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 12:10:31 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/05 12:22:32 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2022/01/24 11:20:55 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	get_file_height(char *str)
 	count = 0;
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-	{
-		printf("(%d)Error al abrir el archivo.\n", fd);
 		return (-1);
-	}
 	archive = 0;
 	archive = get_next_line(fd);
 	while (archive)

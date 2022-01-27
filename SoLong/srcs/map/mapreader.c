@@ -6,7 +6,7 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 08:31:10 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/21 16:52:43 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:10:16 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,28 +66,6 @@ char	**create_showmap(char *str_dir, int y_max)
 	return (show_map);
 }
 
-t_list	**create_objectlist(t_list **list, char **show_map)
-{
-	int		y;
-	int		x;
-
-	y = 0;
-	x = 0;
-	list = ft_calloc(sizeof(t_list *), 1);
-	while (show_map[y] != '\0')
-	{
-		while (show_map[y][x] != '\0')
-		{
-			if (show_map[y][x] == 'C' || show_map[y][x] == 'E')
-				ft_lstadd_back(list, ft_lstnew(show_map[y][x], x, y));
-			x++;
-		}
-		y++;
-		x = 0;
-	}
-	return (list);
-}
-
 t_list	**create_playerlist(t_list **player, char **show_map, int y_max)
 {
 	int		y;
@@ -112,6 +90,31 @@ t_list	**create_playerlist(t_list **player, char **show_map, int y_max)
 	return (player);
 }
 
+t_list	**create_enemylist(t_list **enemy, char **showmap)
+{
+	int		y;
+	int		x;
+
+	y = 0;
+	x = 0;
+	enemy = ft_calloc(sizeof(t_list *), 1);
+	while (showmap[y] != '\0')
+	{
+		while (showmap[y][x] != '\0')
+		{
+			if (showmap[y][x] == 'X')
+			{
+				ft_lstadd_back(enemy, \
+					ft_lstnew(showmap[y][x], x, y));
+			}
+			x++;
+		}
+		y++;
+		x = 0;
+	}
+	return (enemy);
+}
+
 t_data_map	*mapreader(char *str_dir)
 {
 	int			height;
@@ -123,78 +126,8 @@ t_data_map	*mapreader(char *str_dir)
 	map = ft_calloc(sizeof(t_data_map), 1);
 	map->showmap = create_showmap(str_dir, height);
 	map->background_map = create_map(map->showmap, height);
-	map->list = create_objectlist(map->list, map->showmap);
 	map->player = create_playerlist(map->player, map->showmap, height);
+	map->enemy = create_enemylist(map->enemy, map->showmap);
+	map->counter_moves = 0;
 	return (map);
 }
-
-/*
-
-	t_list 		**list;
-	t_list 		**player;
-	int i;
-
-	list = map->list;
-	player = map->player;
-	printf("\nMapa a mostrar\n");
-	i = 0;
-	while (i < height)
-	{
-		printf("%s\n", map->showmap[i]);
-		i++;
-	}
-	printf("\nMapa de fondo\n");
-	i = 0;
-	while (i < height)
-	{
-		printf("%s\n", map->background_map[i]);
-		i++;
-	}
-
-	printf("\nObjetos en la lista\n");
-	while ((*list) != 0)
-	{
-		printf ("Objeto tipo : %c , Array pos[%i][%i]\n", (*list)->type, (*list)->y_axis, (*list)->x_axis);
-		*list = (*list)->next;
-	}
-	printf("\nJugadores en la lista\n");
-	while ((*player) != 0)
-	{
-		printf ("Objeto tipo : %c , Array pos[%i][%i]\n", (*player)->type, (*player)->y_axis, (*player)->x_axis);
-		*player = (*player)->next;
-	}
-	*/
-
-/*
-int	get_file_size(char *str)
-{	
-	int		count;
-	int		test;
-	int		fd;
-	char	*archive;
-
-	count = 0;
-	fd = open(str, O_RDONLY);
-	if (fd == -1)
-	{
-		printf("(%d)Error al abrir el archivo.\n", fd);
-		return (-1);
-	}
-	archive = 0;
-	archive = get_next_line(fd);
-	while (archive[count] != 0 && archive[count] != '\n')
-		count++;
-	while (archive)
-	{
-		test = 0;
-		while (archive[test] != 0 && archive[test] != '\n')
-			test++;
-		free(archive);
-		if (test != count)
-			return (-1);
-		archive = get_next_line(fd);
-	}
-	close(fd);
-	return (count);
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 09:04:39 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/21 14:20:33 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2022/01/24 13:32:08 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,17 @@ t_window	*init_window(void)
 	window = ft_calloc(sizeof(t_window), 1);
 	window->mlx_ptr = mlx_init();
 	window->floor_title = mlx_xpm_file_to_image(window->mlx_ptr, \
-		"./srcs/img/Floor.xpm", &i, &i);
+		"./srcs/assets/Floor.xpm", &i, &i);
 	window->player_title = mlx_xpm_file_to_image(window->mlx_ptr, \
-		"./srcs/img/Character.xpm", &i, &i);
+		"./srcs/assets/Character.xpm", &i, &i);
 	window->wall_title = mlx_xpm_file_to_image(window->mlx_ptr, \
-		"./srcs/img/Wall.xpm", &i, &i);
+		"./srcs/assets/Wall.xpm", &i, &i);
 	window->coin_title = mlx_xpm_file_to_image(window->mlx_ptr, \
-		"./srcs/img/Coin.xpm", &i, &i);
+		"./srcs/assets/Coin.xpm", &i, &i);
 	window->exit_title = mlx_xpm_file_to_image(window->mlx_ptr, \
-		"./srcs/img/Door.xpm", &i, &i);
+		"./srcs/assets/Door.xpm", &i, &i);
+	window->enemy_title = mlx_xpm_file_to_image(window->mlx_ptr, \
+		"./srcs/assets/Enemy.xpm", &i, &i);
 	return (window);
 }
 
@@ -53,6 +55,9 @@ void	draw_image(t_data_map *data_map, int y, int x)
 	else if (data_map->showmap[y][x] == 'E')
 		mlx_put_image_to_window(window->mlx_ptr,
 			window->win_ptr, window->exit_title, x * 32, y * 32);
+	else if (data_map->showmap[y][x] == 'X')
+		mlx_put_image_to_window(window->mlx_ptr,
+			window->win_ptr, window->enemy_title, x * 32, y * 32);
 }
 
 void	set_window(t_data_map *data_map)

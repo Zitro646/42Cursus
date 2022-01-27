@@ -6,7 +6,7 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:47:09 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/07 13:50:29 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2022/01/24 11:20:12 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*get_str(char *str);
 static char	*get_extra(char *str, char *pin);
-static char	*read_Buffer(int fd, char *str);
+static char	*read_buffer(int fd, char *str);
 static char	*makenewstr(char *oldstr, int size);
 
 char	*get_next_line(int fd)
@@ -37,13 +37,13 @@ char	*get_next_line(int fd)
 		str = ft_calloc_gnl(tam + 1, sizeof(char));
 		pin[fd] = ft_calloc_gnl(tam + 1, sizeof(char));
 	}
-	str = read_Buffer(fd, str);
+	str = read_buffer(fd, str);
 	pin[fd] = get_extra(str, pin[fd]);
 	str = get_str(str);
 	return (str);
 }
 
-static char	*read_Buffer(int fd, char *str)
+static char	*read_buffer(int fd, char *str)
 {
 	int		tam;
 
@@ -77,7 +77,7 @@ static char	*get_extra(char *str, char *pin)
 	{
 		tam = ft_strlen_gnl(ft_strchr_gnl(str, '\n'));
 		extra = ft_calloc_gnl(sizeof(char), \
-			 ft_strlen_gnl(ft_strchr_gnl(str, '\n')) + 1);
+			ft_strlen_gnl(ft_strchr_gnl(str, '\n')) + 1);
 		if (extra == 0)
 			return (0);
 		ft_memcpy_gnl(extra, str + (ft_strlen_gnl(str) - tam + 1), tam);

@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 19:47:47 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/25 14:43:38 by mortiz-d         ###   ########.fr       */
+/*   Created: 2021/11/04 18:10:27 by mortiz-d          #+#    #+#             */
+/*   Updated: 2022/01/17 13:44:00 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-t_list	*ft_lstnew(char type, int x, int y)
+char	*ft_strrchr(const char *s, int c)
 {
-	t_list	*lista;
+	const char		*aux1;
+	unsigned long	aux2;
 
-	lista = malloc(sizeof(t_list));
-	if (lista == 0)
-		return (0);
-	lista->type = type;
-	lista->go_to_x = x;
-	lista->go_to_y = y;
-	lista->x_axis = x;
-	lista->y_axis = y;
-	lista->next = 0;
-	lista->prev = 0;
-	return (lista);
+	aux1 = s;
+	aux2 = 0;
+	while (aux1[aux2] != '\0')
+		aux2++;
+	if (c > 127)
+		c = (unsigned char)c;
+	while (aux2 > 0)
+	{
+		if (aux1[aux2] == c)
+			return (&((char *)aux1)[aux2]);
+		aux2--;
+	}	
+	if (aux1[aux2] == c)
+		return (&((char *)aux1)[aux2]);
+	return (0);
 }

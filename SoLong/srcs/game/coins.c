@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   coins.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 19:47:47 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/25 14:43:38 by mortiz-d         ###   ########.fr       */
+/*   Created: 2022/01/25 13:44:09 by mortiz-d          #+#    #+#             */
+/*   Updated: 2022/01/25 14:26:55 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "game.h"
 
-t_list	*ft_lstnew(char type, int x, int y)
+int	check_coins(char **show_map)
 {
-	t_list	*lista;
+	int		x;
+	int		y;
+	int		coins;
 
-	lista = malloc(sizeof(t_list));
-	if (lista == 0)
-		return (0);
-	lista->type = type;
-	lista->go_to_x = x;
-	lista->go_to_y = y;
-	lista->x_axis = x;
-	lista->y_axis = y;
-	lista->next = 0;
-	lista->prev = 0;
-	return (lista);
+	coins = 0;
+	y = 0;
+	while (show_map[y] != 0)
+	{
+		x = 0;
+		while (show_map[y][x] != 0)
+		{
+			if (show_map[y][x] == 'C')
+				coins++;
+			x++;
+		}
+		y++;
+	}
+	return (coins);
 }

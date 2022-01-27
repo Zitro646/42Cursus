@@ -6,64 +6,22 @@
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 12:51:39 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/25 14:43:54 by mortiz-d         ###   ########.fr       */
+/*   Updated: 2022/01/17 13:42:47 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
-# endif
-# include <unistd.h>
-# include <fcntl.h>
 # include <stddef.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_list
 {
-	int				x_axis;
-	int				y_axis;
-	int				go_to_x;
-	int				go_to_y;
-	char			type;
+	int				content;
 	struct s_list	*next;
 	struct s_list	*prev;
 }	t_list;
-
-/*
-typedef struct s_list_enemy
-{
-	int					x_axis;
-	int					y_axis;
-
-	char				type;
-	struct s_list_enemy	*next;
-	struct s_list_enemy	*prev;
-}	t_list_enemy;
-*/
-
-typedef struct window
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*floor_title;
-	void	*player_title;
-	void	*enemy_title;
-	void	*exit_title;
-	void	*wall_title;
-	void	*coin_title;
-}	t_window;
-
-typedef struct data_map
-{
-	int				counter_moves;
-	char			**background_map;
-	char			**showmap;
-	t_window		*window;
-	t_list			**player;
-	t_list			**enemy;
-}	t_data_map;
 
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
@@ -100,24 +58,13 @@ void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
-
-//List functions
-t_list		*ft_lstnew(char type, int x, int y);
+t_list		*ft_lstnew(int content);
 void		ft_lstadd_front(t_list **lst, t_list *new);
 int			ft_lstsize(t_list *lst);
 t_list		*ft_lstlast(t_list *lst);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstdelone(t_list *lst);
 void		ft_lstclear(t_list **lst);
-
-//GNL functions
-char		*get_next_line(int fd);
-int			ft_write_char(int c);
-int			ft_write_string(const char *c);
-int			ft_strlen_gnl(const char *str);
-char		*ft_strchr_gnl(const char *s, int c);
-void		*ft_memcpy_gnl(void *dest, const void *src, size_t n);
-void		*ft_calloc_gnl(size_t count, size_t size);
-void		ft_bzero_gnl(void *s, size_t n);
+void		ft_lstiter(t_list *lst, void (*f)(int));
 
 #endif

@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_write_decimal.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 19:47:47 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/25 14:43:38 by mortiz-d         ###   ########.fr       */
+/*   Created: 2021/11/22 10:35:42 by mortiz-d          #+#    #+#             */
+/*   Updated: 2021/11/23 09:49:18 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-t_list	*ft_lstnew(char type, int x, int y)
+int	ft_write_decimal(int number)
 {
-	t_list	*lista;
+	int	cont;
 
-	lista = malloc(sizeof(t_list));
-	if (lista == 0)
-		return (0);
-	lista->type = type;
-	lista->go_to_x = x;
-	lista->go_to_y = y;
-	lista->x_axis = x;
-	lista->y_axis = y;
-	lista->next = 0;
-	lista->prev = 0;
-	return (lista);
+	if (number < 0)
+		cont = 2;
+	else
+		cont = 1;
+	ft_putnbr(number);
+	while (number / 10 != 0)
+	{
+		number /= 10;
+		cont++;
+	}
+	return (cont);
 }
+
+/*
+int	main(void)
+{
+	ft_write_decimal(131241);
+}
+*/

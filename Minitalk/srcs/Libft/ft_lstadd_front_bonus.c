@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mortiz-d <mortiz-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/11 19:47:47 by mortiz-d          #+#    #+#             */
-/*   Updated: 2022/01/25 14:43:38 by mortiz-d         ###   ########.fr       */
+/*   Created: 2021/11/12 13:20:10 by mortiz-d          #+#    #+#             */
+/*   Updated: 2022/01/17 13:41:44 by mortiz-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(char type, int x, int y)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	t_list	*lista;
-
-	lista = malloc(sizeof(t_list));
-	if (lista == 0)
-		return (0);
-	lista->type = type;
-	lista->go_to_x = x;
-	lista->go_to_y = y;
-	lista->x_axis = x;
-	lista->y_axis = y;
-	lista->next = 0;
-	lista->prev = 0;
-	return (lista);
+	(*lst)->prev = new;
+	new->next = *lst;
+	*lst = new;
 }
